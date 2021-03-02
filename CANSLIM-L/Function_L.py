@@ -59,12 +59,6 @@ def all_data(rps, ret):
     return df
 
 
-df_new = pd.DataFrame(np.NaN, columns=ret_use.columns, index=ret_use.index)
-for date in df_new.index:
-    for x in rps_use[date].index:
-        df_new.loc[date, x] = rps_use[date].loc[x, 'RPS']
-# df_new.index=(pd.to_datetime(df_new.index)).strftime('%Y-%m-%d')
-
 dates_list = [datetime.strftime(x, '%F') for x in pd.date_range(rps_start, rps_end, freq='m')]
 df_rps_rank = pd.DataFrame()
 for date in dates_list:
@@ -74,3 +68,9 @@ for date in dates_list:
         date = date.strftime('%Y-%m-%d')
     df_rps_rank[date] = rps_use[date].index[:50]
 print(df_rps_rank)
+
+df_new = pd.DataFrame(np.NaN, columns=ret_use.columns, index=ret_use.index)
+for date in df_new.index:
+    for x in rps_use[date].index:
+        df_new.loc[date, x] = rps_use[date].loc[x, 'RPS']
+# df_new.index=(pd.to_datetime(df_new.index)).strftime('%Y-%m-%d')
