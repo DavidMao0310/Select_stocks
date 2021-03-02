@@ -8,7 +8,7 @@ import pandas as pd
 plt.style.use('fivethirtyeight')
 pd.set_option('display.max_columns', None)
 
-data = pd.read_csv('(chi)daily_data.csv', encoding='gbk')
+data = pd.read_csv('(close.szsh)daily_data.csv')
 data['trade_date'] = pd.to_datetime(data['trade_date'], format='%Y-%m-%d')
 data.set_index('trade_date', inplace=True)
 data.index = (pd.to_datetime(data.index)).strftime('%Y-%m-%d')
@@ -68,9 +68,20 @@ for date in dates_list:
         date = date.strftime('%Y-%m-%d')
     df_rps_rank[date] = rps_use[date].index[:50]
 print(df_rps_rank)
+L_select_stocks = df_rps_rank.iloc[:, -1].values.tolist()
+# L select can get the strength candidates
+print(L_select_stocks)
 
-df_new = pd.DataFrame(np.NaN, columns=ret_use.columns, index=ret_use.index)
-for date in df_new.index:
-    for x in rps_use[date].index:
-        df_new.loc[date, x] = rps_use[date].loc[x, 'RPS']
-# df_new.index=(pd.to_datetime(df_new.index)).strftime('%Y-%m-%d')
+##################################################
+######## More details Not necessary
+want = input('Want to get more details?(Y=1,N=0):')
+if want == 1:
+    rps_value = pd.DataFrame(np.NaN, columns=ret_use.columns, index=ret_use.index)
+    for date in rps_value.index:
+        for x in rps_use[date].index:
+            rps_value.loc[date, x] = rps_use[date].loc[x, 'RPS']
+    print(rps_value)
+else:print('Done')
+
+
+
