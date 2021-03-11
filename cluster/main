@@ -5,7 +5,10 @@ from matplotlib.collections import LineCollection
 from sklearn import cluster, covariance, manifold
 from Lfilter import Lfilter
 
-data = pd.read_csv('database/(close.sz)daily_data.csv')
+#Get the top 50 candidates(RP120), then use find the correlation between them, also cluster them with similar relation(dependency) into distinct groups.
+
+
+data = pd.read_csv('(close.sz)daily_data.csv')
 stock = data
 names = Lfilter(data)
 print(names)
@@ -28,7 +31,8 @@ for i in range(n_labels + 1):
 
 
 
-
+#################################################
+##Now we do a visualization
 node_position_model= manifold.LocallyLinearEmbedding(n_components=2,eigen_solver='dense',n_neighbors=6)
 
 embedding=node_position_model.fit_transform(X.T).T
