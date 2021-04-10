@@ -1,1 +1,1 @@
-This is a score system, it can help us measure the performance of the stocks
+We are going to find the correlations for some major indeces, using some machine learning method.
